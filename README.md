@@ -1,4 +1,5 @@
 # RPI Discord Display
+<img src="readmepic.png">
 
 ## Requirements
 * Waveshare 2.7 Inch Display
