@@ -18,6 +18,13 @@ Create a [Discord Application](https://discord.com/developers/applications) and 
 node bot.js <token> <bot ID>
 ```
 
+## Using the project
+### Text
+Head to a discord chat and type `draw <text>` to show the text on the screen
+
+### Image
+Type in `image` on a chat and attach a single image in the same message to have it displayed on the screen
+
 ### Python Backend
 ```sh
 cd display
