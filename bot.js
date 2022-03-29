@@ -5,10 +5,12 @@ const { window } = new JSDOM("");
 const $ = require("jquery")(window);
 const http = require("http");
 const https = require('https');
-const token = process.argv.slice(2)[0];
-client.login(token);
 const fs = require('fs')
+
+const token = process.argv.slice(2)[0];
 const botId = process.argv.slice(2)[1];
+
+client.login(token);
 
 client.on("messageCreate", async message => {
     if (message.content.startsWith("draw ")) {
@@ -57,9 +59,9 @@ client.on("messageCreate", async message => {
                                 message.react("❌");
                             });
                         });
-                    });  // close() is async, call cb after close completes.
-                }).on('error', function (err) { // Handle errors
-                    fs.unlink(dest); // Delete the file async. (But we don't check the result)
+                    });
+                }).on('error', function (err) {
+                    fs.unlink(dest);
                     message.react("❌")
                 });
             } else {
