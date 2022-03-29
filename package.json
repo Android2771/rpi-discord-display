@@ -1,0 +1,23 @@
+{
+  "name": "rpi-discord-display",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Android2771/rpi-discord-display.git"
+  },
+  "author": "Android2771",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Android2771/rpi-discord-display/issues"
+  },
+  "homepage": "https://github.com/Android2771/rpi-discord-display#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
