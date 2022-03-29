@@ -1,4 +1,4 @@
-# rpi-discord-display
+# RPI Discord Display
 
 ## Install the packages
 ```sh
