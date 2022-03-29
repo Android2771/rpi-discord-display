@@ -2,7 +2,7 @@
 <img src="readmepic.png">
 
 ## Requirements
-* Waveshare 2.7 Inch Display
+* Waveshare 2.7 Inch E-Paper Display HAT Module Kit 264 x 176 Resolution
 * Raspberry Pi (tested on 3B and 4)
 
 ## Install the packages
