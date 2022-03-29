@@ -1,5 +1,9 @@
 # RPI Discord Display
 
+## Requirements
+* Waveshare 2.7 Inch Display
+* Raspberry pi (tested on 3 and 4)
+
 ## Install the packages
 ```sh
 npm i
