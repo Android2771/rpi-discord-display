@@ -1,5 +1,12 @@
-import Discord from "discord.js";
-const client = new Discord.Client();
+const Discord = require("discord.js");
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
+const { JSDOM } = require("jsdom");
+const { window } = new JSDOM("");
+const $ = require("jquery")(window);
+const fs = require('fs')
+const http = require("http");
+const https = require('https');
+const botId = '821417993250144327'
 
 fs.readFile(`${__dirname}/token.txt`, 'utf8', (err, data) => {
     try {
@@ -7,7 +14,7 @@ fs.readFile(`${__dirname}/token.txt`, 'utf8', (err, data) => {
     } catch { message.react("❌") }
 })
 
-client.on("ready", async () => {
+client.on("messageCreate", async message => {
     if (message.content.startsWith("draw ")) {
         const text = message.content.substring(5)
         message.react("⏱️")
@@ -31,7 +38,7 @@ client.on("ready", async () => {
         message.attachments.forEach(item => {
             if (item.url.endsWith("jpg") || item.url.endsWith("jpeg") || item.url.endsWith("png")) {
                 message.react("⏱️")
-                const file = fs.createWriteStream(`${__dirname}/python/in.jpg`);
+                const file = fs.createWriteStream(`${__dirname}/display/in.jpg`);
                 https.get(item.url, function (response) {
                     response.pipe(file);
                     file.on('finish', function () {
