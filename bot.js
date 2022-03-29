@@ -3,16 +3,12 @@ const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 const { JSDOM } = require("jsdom");
 const { window } = new JSDOM("");
 const $ = require("jquery")(window);
-const fs = require('fs')
 const http = require("http");
 const https = require('https');
-const botId = '821417993250144327'
-
-fs.readFile(`${__dirname}/token.txt`, 'utf8', (err, data) => {
-    try {
-        client.login(data.trim());
-    } catch { message.react("❌") }
-})
+const token = process.argv.slice(2)[0];
+client.login(token);
+const fs = require('fs')
+const botId = process.argv.slice(2)[1];
 
 client.on("messageCreate", async message => {
     if (message.content.startsWith("draw ")) {
