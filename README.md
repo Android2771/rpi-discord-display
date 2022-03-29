@@ -2,7 +2,7 @@
 
 ## Requirements
 * Waveshare 2.7 Inch Display
-* Raspberry pi (tested on 3 and 4)
+* Raspberry Pi (tested on 3B and 4)
 
 ## Install the packages
 ```sh
