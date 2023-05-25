@@ -8,7 +8,7 @@ const https = require('https');
 const fs = require('fs')
 
 const token = process.argv.slice(2)[0];
-const botId = process.argv.slice(2)[1];
+const botId = atob(token.split('.')[0])
 
 client.login(token);
 
