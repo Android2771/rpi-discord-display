@@ -15,7 +15,9 @@ echo <token> > bot/resources/token.txt
 ```
 
 #### Waveshare Version
-Head to `display/resources/waveshare.txt` and select your model by prepending the line with a dash and a space `- `. Currently, `epd2in7` is selected by default for a Waveshare 2.7 inch display. Note that you need to remove the dash from epd2in7 to change versions.
+Head to `display/resources/waveshare.txt` and select your model by prepending the line with a dash and a space `- `. 
+
+Currently, `epd2in7` is selected by default for a Waveshare 2.7 inch display. Note that you need to remove the dash from epd2in7 to change versions.
 
 ### Running using docker
 To install docker:
