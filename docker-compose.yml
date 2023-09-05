@@ -1,0 +1,32 @@
+version : '3.8'
+services:
+  bot:
+    container_name: display-bot
+    build:
+      context: bot
+      dockerfile: Dockerfile
+    image: display-bot
+    volumes:
+      - ./bot/resources:/bot/resources
+      - ./display/resources:/display/resources
+    networks:
+      - display-network
+    restart: unless-stopped
+  display:
+    container_name: display-controller
+    build:
+      context: display
+      dockerfile: Dockerfile
+    image: display-controller
+    volumes:
+      - ./display/resources:/display/resources
+    ports:
+      - "7000:7000"
+    networks:
+      - display-network
+    privileged: true
+    restart: unless-stopped
+    
+networks:
+  display-network:
+    driver: bridge

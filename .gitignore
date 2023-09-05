@@ -1,4 +1,4 @@
 node_modules/
 __pycache__/
-*.txt
 *.jpg
+*.png
