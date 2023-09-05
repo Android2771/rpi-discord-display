@@ -10,8 +10,7 @@
 #### Discord Bot
 Create a [Discord Application](https://discord.com/developers/applications) and place the token and the discord bot's ID inside a `token.txt` file in the `resources` directory
 ```sh
-mkdir resources
-echo <token> >> resources/token.txt
+echo <token> > resources/token.txt
 ```
 
 #### Waveshare Version
