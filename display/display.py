@@ -61,10 +61,6 @@ def clear(btn):
     
 def togglePicture(btn):
   requests.get('http://localhost:7000/picture')
-  
-def shutdown(btn):
-  os.system('sudo shutdown now')
 
 btn1.when_pressed = clear
 btn2.when_pressed = togglePicture
-btn3.when_pressed = shutdown
