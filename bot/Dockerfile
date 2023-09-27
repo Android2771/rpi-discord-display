@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:lts
 
 WORKDIR /bot
 
@@ -7,8 +7,8 @@ COPY package.json .
 COPY package-lock.json .
 COPY tsconfig.json .
 
-RUN npm install
-RUN npm install typescript -g
+RUN npm i
+RUN npm i typescript -g
 RUN tsc
 
 CMD ["node", "/bot/bot.js"]
