@@ -11,37 +11,38 @@ const botId = atob(token.split('.')[0])
 
 const client = new Client(
     {
-      intents: [GatewayIntentBits.DirectMessages,
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.MessageContent,
-      GatewayIntentBits.GuildMembers,
-      GatewayIntentBits.DirectMessageReactions,
-      GatewayIntentBits.GuildMessageReactions,
-      GatewayIntentBits.GuildPresences
-      ], partials: [Partials.Channel]
+        intents: [GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildPresences
+        ], partials: [Partials.Channel]
     })
 
 client.login(token);
 
-client.on("messageCreate", async (message : any) => {
+client.on("messageCreate", async (message: any) => {
     if (message.content.startsWith("draw ")) {
         const text = message.content.substring(5)
         const name = message.author.username
         message.react("⏱️")
         fetch(`http://display:7000/draw?author=${name}&text=${text}`)
-        .then(() => {
-            const botReactions = message.reactions.cache.filter((reaction : any) => reaction.users.cache.has(botId));
-            for (const reaction of botReactions.values())
-            reaction.users.remove(botId);
-            message.react("✏️");
-        }).catch((err) => {
-            console.error(err)
-            message.react("❌");
-        });
-    }else if (message.attachments.size === 1) {
-        message.attachments.forEach((item : any) => {
-            if (item.url.endsWith("jpg") || item.url.endsWith("jpeg") || item.url.endsWith("png")) {
+            .then(() => {
+                const botReactions = message.reactions.cache.filter((reaction: any) => reaction.users.cache.has(botId));
+                for (const reaction of botReactions.values())
+                    reaction.users.remove(botId);
+                message.react("✏️");
+            }).catch((err) => {
+                console.error(err)
+                message.react("❌");
+            });
+    } else if (message.attachments.size === 1) {
+        message.attachments.forEach((item: any) => {
+            const url = item.url.split('?')[0];
+            if (url.endsWith("jpg") || url.endsWith("jpeg") || url.endsWith("png")) {
                 message.react("⏱️")
                 const file = fs.createWriteStream('/display/resources/in.jpg');
                 https.get(item.url,  (response : any) => {
@@ -49,22 +50,22 @@ client.on("messageCreate", async (message : any) => {
                     file.on('finish', function () {
                         file.close(() => {
                             fetch('http://display:7000/picture').then(() => {
-                            const botReactions = message.reactions.cache.filter((reaction : any) => reaction.users.cache.has(botId));
-                            for (const reaction of botReactions.values())
-                                reaction.users.remove(botId);
-                            message.react("✏️");
+                                const botReactions = message.reactions.cache.filter((reaction: any) => reaction.users.cache.has(botId));
+                                for (const reaction of botReactions.values())
+                                    reaction.users.remove(botId);
+                                message.react("✏️");
                             }).catch(() => {
-                            const botReactions = message.reactions.cache.filter((reaction: any) => reaction.users.cache.has(botId));
-                            for (const reaction of botReactions.values())
-                                reaction.users.remove(botId);
-                            message.react("❌");
+                                const botReactions = message.reactions.cache.filter((reaction: any) => reaction.users.cache.has(botId));
+                                for (const reaction of botReactions.values())
+                                    reaction.users.remove(botId);
+                                message.react("❌");
                             });
                         });
                     });
                 })
             } else {
-            message.react("❌")
+                message.react("❌")
             }
         });
-    }    
+    }
 })
