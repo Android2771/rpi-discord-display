@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from random import randint
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
