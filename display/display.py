@@ -56,11 +56,6 @@ async def picture():
   image = image.transpose(Image.ROTATE_90)
   epd.display(epd.getbuffer(image))
   return 'OK'
-  
-@app.get("/temp")
-async def temp():
-  print("TEMP ENDPOINT CALLED!")
-  return str(subprocess.run(["vcgencmd", "measure_temp"], capture_output=True).stdout)
 
 def clear(btn):
   image = Image.new('1', (176, 264), 255)
