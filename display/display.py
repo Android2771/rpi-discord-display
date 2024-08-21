@@ -3,12 +3,22 @@ from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+from gpiozero import Button
 import textwrap
-import epd2in7
+import requests
+import epaper
+
+btn1 = Button(5)
+btn2 = Button(6)
+btn3 = Button(13)
+btn4 = Button(19)
 
 app = FastAPI()
 
-epd = epd2in7.EPD()
+f = open("resources/waveshare.txt", "r") 
+selected_version = [line[2:] for line in f if line.startswith("- ")][0].strip()
+  
+epd = epaper.epaper(selected_version).EPD()
 epd.init()
 
 app.add_middleware(
@@ -23,8 +33,8 @@ app.add_middleware(
 async def draw(author, text):
     image = Image.new('1', (264, 176), 255)
     draw = ImageDraw.Draw(image)
-    smallFont = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSansBold.ttf', 20)
-    largeFont = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSansBold.ttf', 27)
+    smallFont = ImageFont.truetype('./resources/FreeSansBold.ttf', 20)
+    largeFont = ImageFont.truetype('./resources/FreeSansBold.ttf', 27)
     draw.rectangle((0, 0, 264, 40), fill = 0)
     draw.text((10, 10), f'{author} said:', font = smallFont, fill = 255)
     offset = 0
@@ -33,11 +43,26 @@ async def draw(author, text):
         offset += largeFont.getsize(line)[1]
 
     image = image.transpose(Image.ROTATE_90)
-    epd.display_frame(epd.get_frame_buffer(image))
+    image.save('./resources/out.png')
+    epd.display(epd.getbuffer(image))
+    return 'OK'
     
 @app.get("/picture")
 async def picture():
-  image = Image.open('in.jpg')
+  image = Image.open('./resources/in.jpg')
   image = image.resize((264, 176))
   image = image.transpose(Image.ROTATE_90)
-  epd.display_frame(epd.get_frame_buffer(image))
+  epd.display(epd.getbuffer(image))
+  return 'OK'
+
+def clear(btn):
+  image = Image.new('1', (176, 264), 255)
+  epd.display(epd.getbuffer(image))
+  return 'OK'
+    
+def toggle_picture(btn):
+  requests.get('http://localhost:7000/picture')
+  return 'OK'
+
+btn1.when_pressed = clear
+btn2.when_pressed = toggle_picture
